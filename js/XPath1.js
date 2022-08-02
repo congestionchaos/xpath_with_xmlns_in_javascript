@@ -3,7 +3,7 @@ var variant;
 var path;
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        showResult(xhttp.responseXML, "select price nodes with price>35");
+        showResult(xhttp.responseXML, "select all the prices");
     }
 };
 xhttp.open("GET", "books.xml", true);
@@ -28,11 +28,11 @@ function showResult(xml, variant){
             path = "/bookstore/book[price<35]/title";
             break;
         default:
-            path = "/bookstore/book[1]/title";
+            path = "/bookstore/book/title";
 
     }
 
-    var txt = "";
+    var txt = "You have asked for: " + variant  + "<br>" + "..and the result is: " + "<br>";
     //path = "/bookstore/book/price[text()]"
     if (xml.evaluate){
         var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
