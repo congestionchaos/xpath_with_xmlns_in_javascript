@@ -22,9 +22,9 @@ function showResult(xml, variant){
             path = "/bookstore/book/price[text()]";
             break;
         case "select price nodes with price>35":
-            path = "/bookstore/book[price<35]/price";
+            path = "/bookstore/book[price>35]/price";
             break;
-        case "select title nodes with price>35":
+        case "select title nodes with price<35":
             path = "/bookstore/book[price<35]/title";
             break;
         default:
