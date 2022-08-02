@@ -29,6 +29,7 @@ function showResult(xml, variant){
             break;
         default:
             path = "/bookstore/book/title";
+            variant = "default";
 
     }
 
