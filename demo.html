@@ -24,19 +24,19 @@
   function showResult(xml, variant){
     //var variant = "";
     switch (variant){
-      case variant === "select title":
+      case "select title":
         path = "/bookstore/book/title";
         break;
-      case variant === "select title of first book":
+      case "select title of first book":
         path = "/bookstore/book[1]/title";
         break;
-      case variant === "select all the prices":
+      case "select all the prices":
         path = "/bookstore/book/price[text()]";
         break;
-      case variant === "select price nodes with price>35":
+      case "select price nodes with price>35":
         path = "/bookstore/book[price<35]/price";
         break;
-      case variant === "select title nodes with price>35":
+      case "select title nodes with price>35":
         path = "/bookstore/book[price<35]/title";
         break;
       default:
@@ -45,7 +45,7 @@
     }
 
     var txt = "";
-    //path = "/bookstore/book/title"
+    //path = "/bookstore/book/price[text()]"
     if (xml.evaluate){
       var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
       var result = nodes.iterateNext();
