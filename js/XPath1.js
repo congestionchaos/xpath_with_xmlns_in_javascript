@@ -44,18 +44,18 @@ function showResult(xml, variant){
         console.log(nodes);
         resulttype = nodes.resultType;
         switch(resulttype){
-            case resulttype 1:
+            case 1:
                 // resultType 1: result is of number type;
                 txt += nodes.numberValue;
                 break;
-            case resulttype 2:
+            case 2:
                 // resultType 2: result is of string type;
                 txt += nodes.stringValue;
                 break;
-            case resulttype 3:
+            case 3:
                 // resultType 3: result is of boolean type;
                 txt += nodes.booleanValue;                break;
-            case resulttype 4:
+            case 4:
                 // resultType 4: result is an (unordered) XPathResultIterator --> a Set of Nodes
                 var result = nodes.iterateNext();
                 while (result) {
