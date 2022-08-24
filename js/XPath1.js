@@ -3,7 +3,7 @@ var variant;
 var path;
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        showResult(xhttp.responseXML, "what is the category of the first book?");
+        showResult(xhttp.responseXML, "is there an author that starts with Row..?");
     }
 };
 xhttp.open("GET", "books.xml", true);
@@ -19,6 +19,16 @@ function showResult(xml, variant){
         case "what is the category of the first book?":
             // test the String result type
             path = "string(//book[1]/@category)";
+            break;
+        case "are there any books?":
+            // test the Boolean result type
+            path = "boolean(//book)";
+            break;
+        case "is there an author that starts with Row..?":
+            path = "boolean(//author[contains(text(),'Row')])";
+            // the contains syntax is:
+            // contains( 'string1', 'string2') the  '-sign cannot be exchanged with "
+            // if string1 contains string2 it returns true, otherwise it returns false
             break;
         case "select title":
             path = "/bookstore/book/title";
@@ -59,7 +69,8 @@ function showResult(xml, variant){
                 break;
             case 3:
                 // resultType 3: result is of boolean type;
-                txt += nodes.booleanValue;                break;
+                txt += nodes.booleanValue;
+                break;
             case 4:
                 // resultType 4: result is an (unordered) XPathResultIterator --> a Set of Nodes
                 var result = nodes.iterateNext();
