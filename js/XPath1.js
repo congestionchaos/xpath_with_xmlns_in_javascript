@@ -3,7 +3,7 @@ var variant;
 var path;
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        showResult(xhttp.responseXML, "how many books are in the bookstore?");
+        showResult(xhttp.responseXML, "what is the category of the first book?");
     }
 };
 xhttp.open("GET", "books.xml", true);
@@ -13,7 +13,12 @@ function showResult(xml, variant){
     //var variant = "";
     switch (variant){
         case "how many books are in the bookstore?":
+            // tests the Number result type
             path = "count(//book)";
+            break;
+        case "what is the category of the first book?":
+            // test the String result type
+            path = "string(//book[1]/@category)";
             break;
         case "select title":
             path = "/bookstore/book/title";
