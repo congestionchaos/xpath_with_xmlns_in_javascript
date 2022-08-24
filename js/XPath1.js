@@ -3,7 +3,7 @@ var variant;
 var path;
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        showResult(xhttp.responseXML, "select all the prices");
+        showResult(xhttp.responseXML, "how many books are in the bookstore?");
     }
 };
 xhttp.open("GET", "books.xml", true);
@@ -12,6 +12,9 @@ xhttp.send();
 function showResult(xml, variant){
     //var variant = "";
     switch (variant){
+        case "how many books are in the bookstore?":
+            path = "count(//book)";
+            break;
         case "select title":
             path = "/bookstore/book/title";
             break;
@@ -37,11 +40,33 @@ function showResult(xml, variant){
     //path = "/bookstore/book/price[text()]"
     if (xml.evaluate){
         var nodes = xml.evaluate(path, xml, null, XPathResult.ANY_TYPE, null);
-        var result = nodes.iterateNext();
-        while (result) {
-            txt += result.childNodes[0].nodeValue + "<br>";
-            result = nodes.iterateNext();
+        nodesresult = console.log(nodes);
+        console.log(nodes);
+        resulttype = nodes.resultType;
+        switch(resulttype){
+            case resulttype 1:
+                // resultType 1: result is of number type;
+                txt += nodes.numberValue;
+                break;
+            case resulttype 2:
+                // resultType 2: result is of string type;
+                txt += nodes.stringValue;
+                break;
+            case resulttype 3:
+                // resultType 3: result is of boolean type;
+                txt += nodes.booleanValue;                break;
+            case resulttype 4:
+                // resultType 4: result is an (unordered) XPathResultIterator --> a Set of Nodes
+                var result = nodes.iterateNext();
+                while (result) {
+                    txt += result.childNodes[0].nodeValue + "<br>";
+                    result = nodes.iterateNext();
+                }
+                break;
+            default:
+                // default behavior
         }
+
     }
     document.getElementById("demo").innerHTML = txt;
 }
