@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<my:base xmlns:my="http://www.educba.com/mynamespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.educba.com/mynamespace ">
+    <my:dervived1 my:name="pravi">
+        <my:dervived2 my:name="prathiba">
+            <my:dervived3 my:name="Divya"/>
+        </my:dervived2>
+    </my:dervived1>
+</my:base>
