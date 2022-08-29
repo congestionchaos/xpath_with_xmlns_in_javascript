@@ -12,6 +12,7 @@
         <f:name>African Coffee Table</f:name>
         <f:width>80</f:width>
         <f:length>120</f:length>
+        <f:height amountoflegs = '3' >50</f:height>
     </f:table>
 
 </root>

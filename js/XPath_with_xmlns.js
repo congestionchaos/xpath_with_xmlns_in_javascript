@@ -3,21 +3,36 @@ var variant;
 var path;
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        showResult(xhttp.responseXML, "is there an author that starts with Row..?");
+        showResult(xhttp.responseXML, "How many legs are on the table?");
     }
 };
-xhttp.open("GET", "books.xml", true);
+// furniture XML example is used since it has two different namespaces
+xhttp.open("GET", "furniture_and_html4.xml", true);
 xhttp.send();
 
 function showResult(xml, variant) {
     //var variant = "";
     switch (variant) {
-        case "how many books are in the bookstore?":
-            // tests the Number result type
-            path = "count(//book)";
+        case "What is the name of the table?":
+            // the table uses the "f" namespace
+            path = "string(//*[name()='f:name'])";      // the "name()" selector requires "f:name" with the prefix "f"
+                                                        // "local-name() selector doesn't require the "f" prefix
+            xmlnamespace = 'https://www.w3schools.com/furniture';
+            break;
+        case "How tall is the table?":
+            // the table uses the "f" namespace
+            path ="string(//*[local-name()='height'])"  ;
+            xmlnamespace = 'https://www.w3schools.com/furniture';
+            break;
+        case "How many legs are on the table?":
+            path ="string(//*[local-name()='height']/@amountoflegs)";
+            xmlnamespace = 'https://www.w3schools.com/furniture';
             break;
         default:
             variant = "default";
+    }
+    function nsResolver(){
+        return xmlnamespace;
     }
 
     var txt = "You have asked for: " + variant  + "<br>" + "..and the result is: " + "<br>";
@@ -52,5 +67,5 @@ function showResult(xml, variant) {
             // default behavior
         }
     }
-
+    document.getElementById("demo_2").innerHTML = txt;
 }
