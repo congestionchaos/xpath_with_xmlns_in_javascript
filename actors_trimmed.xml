@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hospital xmlns:bpmn2="http://omg.org/spec/BPMN/20100524/MODEL" xmlns:cp="http://helict.de/bpmn4cp">
+    <bpmn2:stage>
+        <bpmn2:task id="Task_0u3mnxs" name="preparation of MDT meeting">
+            <cp:actor name="Aesthetician"/>
+            <cp:actor name="Anatomic-pathologist" />
+            <cp:actor name="Anesthetist"/>
+            <cp:actor name="Case manager"/>
+            <cp:actor name="Dietitian"/>
+            <cp:actor name="Gastroenterologist"/>
+            <cp:actor name="Medical oncologist"/>
+            <cp:actor name="Nurse specialized in oncology"/>
+            <cp:actor name="Onco-geriatrician"/>
+            <cp:actor name="Pain specialist"/>
+        </bpmn2:task>
+
+        <bpmn2:task id="Task_1c9f2fd" name="pre-therapeutic MDT meeting">
+            <cp:actor name="Aesthetician"/>
+            <cp:actor name="Anatomic-pathologist" />
+            <cp:actor name="Anesthetist"/>
+            <cp:actor name="Case manager"/>
+            <cp:actor name="Dietitian"/>
+            <cp:actor name="Gastroenterologist"/>
+            <cp:actor name="Medical oncologist"/>
+            <cp:actor name="Nurse specialized in oncology"/>
+            <cp:actor name="Onco-geriatrician"/>
+            <cp:actor name="Pain specialist"/>
+            <cp:actor name="Psychologist"/>
+            <cp:actor name="Social worker"/>
+            <cp:actor name="Stoma therapist"/>
+            <cp:actor name="Surgeon"/>
+        </bpmn2:task>
+
+    </bpmn2:stage>
+
+
+
+
+</hospital>
