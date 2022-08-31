@@ -5,6 +5,7 @@ xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         showResult(xhttp.responseXML, "How many actors do we have?");
         showAttributes(xhttp.responseXML);
+        showTasks(xhttp.responseXML);
     }
 };
 // furniture XML example is used since it has two different namespaces
@@ -76,15 +77,15 @@ function showResult(xml, variant) {
 
 function showAttributes(xml){
     var attrtxt ="You've asked for all actors and here they are.. <br>" ;
-    countpath = "count(//*[local-name()='task' and position()=2]/*[local-name()='actor'])";
-    var numberofattributes = xml.evaluate(countpath,xml, null, XPathResult.STRING_TYPE, null);
+    let countpath = "count(//*[local-name()='task' and position()=2]/*[local-name()='actor'])";
+    let numberofattributes = xml.evaluate(countpath,xml, null, XPathResult.STRING_TYPE, null);
     console.log(numberofattributes);
-    var nrofattr = parseInt(numberofattributes.stringValue);
+    let nrofattr = parseInt(numberofattributes.stringValue);
     console.log(nrofattr);
-    var testnumber = 3;
-    testpath = "string(//*[local-name()='task' and position()=2]/*[local-name()='actor' and position()=" +testnumber.toString()+"]/@name)";
+    let testnumber = 3;
+    let testpath = "string(//*[local-name()='task' and position()=2]/*[local-name()='actor' and position()=" +testnumber.toString()+"]/@name)";
     console.log("the testpath is working.. " + testpath);
-    testpathresult = xml.evaluate(testpath, xml, null, XPathResult.STRING_TYPE, null);
+    let testpathresult = xml.evaluate(testpath, xml, null, XPathResult.STRING_TYPE, null);
     console.log(testpathresult.stringValue);
     for(let i = 1; i <nrofattr+1; i++ ){
         console.log("this is loop nr.: " + i +"[starting with 1]");
@@ -97,5 +98,23 @@ function showAttributes(xml){
 
 
 
-    document.getElementById("demo_2").innerHTML = attrtxt;
+    document.getElementById("actor_demo").innerHTML = attrtxt;
+}
+
+function showTasks(xml){
+    var tasktxt = "You've asked for all tasks and here they are.. <br>";
+    let countpath = "count(//*[local-name()='task'])";
+    let numberoftasks = xml.evaluate(countpath, xml, null, XPathResult.STRING_TYPE, null);
+    console.log(numberoftasks);
+    let nroftasks = parseInt(numberoftasks.stringValue);
+    console.log(nroftasks);
+    for(let i =1; i<nroftasks+1; i++){
+        stringtaskpath = "string(//*[local-name()='task' and position() = " +i.toString() + "]/@name)";
+        console.log(stringattrpath);
+        stringtaskpathresult = xml.evaluate(stringtaskpath, xml, null, XPathResult.STRING_TYPE, null);
+        console.log(stringtaskpathresult);
+        tasktxt += stringtaskpathresult.stringValue + "<br>";
+    }
+
+    document.getElementById("task_demo").innerHTML = tasktxt;
 }
