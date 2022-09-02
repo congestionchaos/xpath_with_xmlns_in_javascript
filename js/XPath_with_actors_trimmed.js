@@ -6,6 +6,7 @@ xhttp.onreadystatechange = function() {
         showResult(xhttp.responseXML, "How many actors do we have?");
         showAttributes(xhttp.responseXML);
         showTasks(xhttp.responseXML);
+        getTaskID(xhttp.responseXML, "pre-therapeutic MDT meeting");
     }
 };
 // furniture XML example is used since it has two different namespaces
@@ -122,11 +123,12 @@ function showTasks(xml){
 function getTaskID(xml,name){
     var taskIDtxt = "";
     if(name){
-        namepath = "string(//*[local-name()='task' and @name='" +name+ "'])/@id";
+        // look up an ID for a given name
+        namepath = "string(//*[local-name()='task' and @name='" +name+ "']/@id)";
         console.log(namepath);
         namepathresult = xml.evaluate(namepath, xml, null, XPathResult.STRING_TYPE, null);
         console.log(namepathresult);
-        taskIDtxt += "The Task ID for " + name + "is: " + namepathresult.stringValue + "<br>";
+        taskIDtxt += "The Task ID for " + name + " is: " + namepathresult.stringValue + "<br>";
     }
     else {
         // return all the names and corresponding id's
@@ -139,15 +141,20 @@ function getTaskID(xml,name){
         let nroftasks = parseInt(numberoftasks.stringValue);
         console.log(nroftasks);
         for(let i=1; i<nroftasks+1; i++){
-            taskidpath = "";
-            tasknamepath = "";
+            taskidpath = "string(//*[local-name()='task' and position()="+i.toString() +"]/@id)";
+            console.log(taskidpath);
+            tasknamepath = "string(//*[local-name()='task' and position()="+i.toString() +"]/@name)";
+            console.log(tasknamepath);
             taskidpathresult = xml.evaluate(taskidpath, xml, null, XPathResult.STRING_TYPE, null);
+            console.log(taskidpathresult);
             tasknamepathresult = xml.evaluate(tasknamepath, xml, null, XPathResult.STRING_TYPE, null);
+            console.log(tasknamepathresult);
             taskIDtxt += "[" + i.toString() +"]" + " name: " +  tasknamepathresult.stringValue + " --- TaskID: " + taskidpathresult.stringValue + "<br>";
         }
 
     }
-    document.getElementById(taskID_demo).innerHTML = taskIDtxt;
+    console.log(taskIDtxt);
+    document.getElementById("taskID_demo").innerHTML = taskIDtxt;
 }
 
 
