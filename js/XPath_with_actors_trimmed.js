@@ -118,3 +118,36 @@ function showTasks(xml){
 
     document.getElementById("task_demo").innerHTML = tasktxt;
 }
+
+function getTaskID(xml,name){
+    var taskIDtxt = "";
+    if(name){
+        namepath = "string(//*[local-name()='task' and @name='" +name+ "'])/@id";
+        console.log(namepath);
+        namepathresult = xml.evaluate(namepath, xml, null, XPathResult.STRING_TYPE, null);
+        console.log(namepathresult);
+        taskIDtxt += "The Task ID for " + name + "is: " + namepathresult.stringValue + "<br>";
+    }
+    else {
+        // return all the names and corresponding id's
+        taskIDtxt += "Please specify a name.. <br>" + "Here are all the tasks: <br>";
+
+        // same as in showTask()
+        let countpath = "count(//*[local-name()='task'])";
+        let numberoftasks = xml.evaluate(countpath, xml, null, XPathResult.STRING_TYPE, null);
+        console.log(numberoftasks);
+        let nroftasks = parseInt(numberoftasks.stringValue);
+        console.log(nroftasks);
+        for(let i=1; i<nroftasks+1; i++){
+            taskidpath = "";
+            tasknamepath = "";
+            taskidpathresult = xml.evaluate(taskidpath, xml, null, XPathResult.STRING_TYPE, null);
+            tasknamepathresult = xml.evaluate(tasknamepath, xml, null, XPathResult.STRING_TYPE, null);
+            taskIDtxt += "[" + i.toString() +"]" + " name: " +  tasknamepathresult.stringValue + " --- TaskID: " + taskidpathresult.stringValue + "<br>";
+        }
+
+    }
+    document.getElementById(taskID_demo).innerHTML = taskIDtxt;
+}
+
+
