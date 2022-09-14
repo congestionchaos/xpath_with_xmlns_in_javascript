@@ -7,6 +7,8 @@ xhttp.onreadystatechange = function() {
         showAttributes(xhttp.responseXML);
         showTasks(xhttp.responseXML);
         getTaskID(xhttp.responseXML, "pre-therapeutic MDT meeting");
+        showTaskswithSnapshots(xhttp.responseXML);
+        showActorswithSnapshot(xhttp.responseXML,"surgery");
     }
 };
 // furniture XML example is used since it has two different namespaces
@@ -97,9 +99,33 @@ function showAttributes(xml){
         attrtxt += stringattrpathresult.stringValue +"<br>";
     }
 
-
-
     document.getElementById("actor_demo").innerHTML = attrtxt;
+}
+
+function showTaskswithSnapshots(xml){
+    let txt = "let's display all the tasks in the XML Doc.. <br>";
+    let taskpath = "//*[local-name()='task']/@name";
+    let taskpathresult = xml.evaluate(taskpath, xml, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+    //console.log(taskpathresult);
+    //console.log(taskpathresult.snapshotLength);
+    for (let i = 0; i < taskpathresult.snapshotLength; i++){
+        //console.log(taskpathresult.snapshotItem(i).textContent);
+        txt += "(" + i + ") " + taskpathresult.snapshotItem(i).textContent + "<br>";
+    }
+    document.getElementById("snapshottasks").innerHTML = txt;
+}
+
+function showActorswithSnapshot(xml,taskname){
+    let txt = "You've asked for all the actors in " + taskname + ": <br>";
+    let actorpath = "//*[local-name()='task' and @name='"+ taskname+ "']/*/*[local-name()='actor']/@name";
+    let actorpathresult = xml.evaluate(actorpath, xml, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
+    console.log(actorpathresult);
+    console.log(actorpathresult.snapshotLength);
+    for (let i=0; i < actorpathresult.snapshotLength; i++){
+        txt += "("+i+") " + actorpathresult.snapshotItem(i).textContent + "<br>";
+    }
+
+    document.getElementById("snapshotactors").innerHTML = txt;
 }
 
 function showTasks(xml){
@@ -111,7 +137,7 @@ function showTasks(xml){
     console.log(nroftasks);
     for(let i =1; i<nroftasks+1; i++){
         stringtaskpath = "string(//*[local-name()='task' and position() = " +i.toString() + "]/@name)";
-        console.log(stringattrpath);
+        console.log(stringtaskpath);
         stringtaskpathresult = xml.evaluate(stringtaskpath, xml, null, XPathResult.STRING_TYPE, null);
         console.log(stringtaskpathresult);
         tasktxt += stringtaskpathresult.stringValue + "<br>";
